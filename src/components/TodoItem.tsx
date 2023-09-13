@@ -1,5 +1,5 @@
 import React from 'react';
-import type { Todo } from './TodoList';
+import type { Todo } from '../hooks/TodoList';
 
 interface TodoItem {
   item: Todo;

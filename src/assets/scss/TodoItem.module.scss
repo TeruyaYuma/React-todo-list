@@ -1,8 +1,26 @@
-.input-area {
-  display: flex;
-  align-items: center;
-
-  & .input-area_input {
+.todoItem {
+  & .itemArea {
+    text-align: left;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    margin-top: 8px;
+  }
+  & .buttonArea {
+  }
+  & .updateButton {
+    border: 1px solid black;
+    border-radius: 5px;
+    padding: 3px 6px;
+    box-sizing: border-box;
+    background-color: #c6c4c4;
     margin-right: 5px;
+  }
+  & .destroyButton {
+    border: 1px solid black;
+    border-radius: 5px;
+    padding: 3px 6px;
+    box-sizing: border-box;
+    background-color: #c6c4c4;
   }
 }

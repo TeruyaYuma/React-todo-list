@@ -1,13 +1,12 @@
-import React from 'react';
 import './App.css';
 import { TodoList } from './components/TodoList';
-import Todo from './assets/scss/App.module.scss';
+import AppStyle from './assets/scss/App.module.scss';
 
 function App() {
   return (
-    <div className="App">
-      <div className={Todo.todo}>
-        <h1>Todo List</h1>
+    <div className={AppStyle.app}>
+      <div className={AppStyle.wrapper}>
+        <h1 className={AppStyle.title}>Todo List</h1>
         <TodoList />
       </div>
     </div>

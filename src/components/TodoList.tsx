@@ -1,10 +1,12 @@
-import React from 'react';
+import React, { useState } from 'react';
 import { Item } from './TodoItem';
 import { useTodoList } from '../hooks/TodoList';
 import type { TodoList as typeTodoList } from '../hooks/TodoList';
 import List from '../assets/scss/TodoList.module.scss';
+import { validateInput } from '../helper/validate';
 
 export const TodoList = () => {
+  const [error, setError] = useState<string>('');
   const {
     text,
     todoList,
@@ -15,6 +17,13 @@ export const TodoList = () => {
     destroy,
   }: typeTodoList = useTodoList();
 
+  const insertWithValidate = (text: string) => {
+    setError('');
+    const res = validateInput(text, setError);
+    if (res) return;
+    insert();
+  };
+
   return (
     <div>
       <div className="input-area">
@@ -24,8 +33,9 @@ export const TodoList = () => {
           onChange={(e) => setText(e.target.value)}
         />
 
-        <button onClick={insert}>追加</button>
+        <button onClick={() => insertWithValidate(text)}>追加</button>
       </div>
+      <p>{error}</p>
 
       <ul className={List.list}>
         {todoList.length > 0 &&

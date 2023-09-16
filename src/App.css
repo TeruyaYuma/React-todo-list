@@ -3,17 +3,3 @@
   box-sizing: border-box;
   text-align: center;
 }
-.todo {
-  display: inline-block;
-}
-.input-area {
-  display: flex;
-  align-items: center;
-}
-.input-area_input {
-  margin-right: 5px;
-}
-.list {
-  text-align: left;
-  padding-inline-start: 16px;
-}

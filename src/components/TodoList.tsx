@@ -2,6 +2,7 @@ import React from 'react';
 import { Item } from './TodoItem';
 import { useTodoList } from '../hooks/TodoList';
 import type { TodoList as typeTodoList } from '../hooks/TodoList';
+import List from '../assets/scss/TodoList.module.scss';
 
 export const TodoList = () => {
   const {
@@ -18,7 +19,6 @@ export const TodoList = () => {
     <div>
       <div className="input-area">
         <input
-          className="input-area_input"
           type="text"
           value={text}
           onChange={(e) => setText(e.target.value)}
@@ -27,7 +27,7 @@ export const TodoList = () => {
         <button onClick={insert}>追加</button>
       </div>
 
-      <ul className="list">
+      <ul className={List.list}>
         {todoList.length > 0 &&
           todoList.map((todo, index) => (
             <React.Fragment key={`list-${index}`}>

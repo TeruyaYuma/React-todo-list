@@ -34,12 +34,7 @@ export const TodoList = () => {
           onChange={(e) => setText(e.target.value)}
         />
 
-        <button
-          className={TodoListStyle.button}
-          onClick={() => insertWithValidate(text)}
-        >
-          追加
-        </button>
+        <button onClick={() => insertWithValidate(text)}>追加</button>
       </div>
       <p>{error}</p>
 

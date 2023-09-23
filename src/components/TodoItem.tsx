@@ -22,12 +22,7 @@ export const Item: React.FC<TodoItem> = ({ item, setIsUpdate, destroy }) => {
           >
             更新
           </button>
-          <button
-            className={TodoItemStyle.destroyButton}
-            onClick={() => destroy(item.id)}
-          >
-            削除
-          </button>
+          <button onClick={() => destroy(item.id)}>削除</button>
         </div>
       </li>
     </div>

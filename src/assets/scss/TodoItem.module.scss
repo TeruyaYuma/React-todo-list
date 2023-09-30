@@ -1,13 +1,6 @@
 .todoItem {
-  & .itemArea {
-    text-align: left;
-    display: flex;
-    justify-content: space-between;
-    align-items: center;
-    margin-top: 8px;
-  }
-  & .buttonArea {
-  }
+  display: flex;
+  justify-content: space-between;
   & .updateButton {
     margin-right: 5px;
   }

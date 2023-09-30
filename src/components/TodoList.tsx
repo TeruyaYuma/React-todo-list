@@ -3,6 +3,7 @@ import { Item } from './TodoItem';
 import { useTodoList } from '../hooks/TodoList';
 import type { TodoList as typeTodoList } from '../hooks/TodoList';
 import TodoListStyle from '../assets/scss/TodoList.module.scss';
+import GlobalStyle from '../assets/scss/Global.module.scss';
 import { validateInput } from '../helper/validate';
 
 export const TodoList = () => {
@@ -26,9 +27,9 @@ export const TodoList = () => {
 
   return (
     <div className={TodoListStyle.todoList}>
-      <div className={TodoListStyle.inputArea}>
+      <div>
         <input
-          className={TodoListStyle.input}
+          className={GlobalStyle.input}
           type="text"
           value={text}
           onChange={(e) => setText(e.target.value)}
@@ -41,19 +42,15 @@ export const TodoList = () => {
       <ul>
         {todoList.length > 0 &&
           todoList.map((todo, index) => (
-            <React.Fragment key={`list-${index}`}>
-              {todo.isUpdate ? (
-                <div>
-                  <input
-                    className={TodoListStyle.input}
-                    type="text"
-                    onKeyDown={(e) => update(index, e)}
-                  />
-                </div>
-              ) : (
-                <Item item={todo} setIsUpdate={setIsUpdate} destroy={destroy} />
-              )}
-            </React.Fragment>
+            <li className={TodoListStyle.itemArea} key={`item-${index}`}>
+              <Item
+                index={index}
+                item={todo}
+                setIsUpdate={setIsUpdate}
+                destroy={destroy}
+                update={update}
+              />
+            </li>
           ))}
       </ul>
     </div>

@@ -1,5 +1,5 @@
-import React, { useState } from 'react';
-import { Item } from './TodoItem';
+import { useState } from 'react';
+import { MemorizeItem } from './TodoItem';
 import { useTodoList } from '../hooks/TodoList';
 import type { TodoList as typeTodoList } from '../hooks/TodoList';
 import TodoListStyle from '../assets/scss/TodoList.module.scss';
@@ -43,7 +43,7 @@ export const TodoList = () => {
         {todoList.length > 0 &&
           todoList.map((todo, index) => (
             <li className={TodoListStyle.itemArea} key={`item-${index}`}>
-              <Item
+              <MemorizeItem
                 index={index}
                 item={todo}
                 setIsUpdate={setIsUpdate}

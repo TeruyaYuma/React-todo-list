@@ -1,4 +1,4 @@
-import React, { useState } from 'react';
+import { useState, useCallback } from 'react';
 
 export type TodoList = ReturnType<typeof useTodoList>;
 
@@ -12,7 +12,7 @@ export const useTodoList = () => {
   const [text, setText] = useState<string>('');
   const [todoList, setTodoList] = useState<Todo[]>([]);
 
-  const insert = () => {
+  const insert = useCallback(() => {
     if (!text) return;
 
     const lastId = todoList.length ? todoList[todoList.length - 1].id : 0;
@@ -25,48 +25,49 @@ export const useTodoList = () => {
 
     setText('');
     setTodoList([...todoList, todo]);
-  };
+  }, [todoList, text]);
 
-  const setIsUpdate = (id: Todo['id']) => {
-    const setIsUpdateTodoList = todoList.map((todo) => {
-      if (todo.id !== id) {
-        return { ...todo, isUpdate: false };
-      }
+  const setIsUpdate = useCallback(
+    (id: Todo['id']) => {
+      const setIsUpdateTodoList = todoList.map((todo) => {
+        if (todo.id !== id) {
+          return { ...todo, isUpdate: false };
+        }
 
-      const isUpdateTodo: Todo = { ...todo, isUpdate: true };
-      return isUpdateTodo;
-    });
+        const isUpdateTodo: Todo = { ...todo, isUpdate: true };
+        return isUpdateTodo;
+      });
 
-    setTodoList(setIsUpdateTodoList);
-  };
-  const update = (index: number, e: React.KeyboardEvent<HTMLInputElement>) => {
-    if (e.key !== 'Enter' || e.currentTarget.value === '') return;
+      setTodoList(setIsUpdateTodoList);
+    },
+    [todoList]
+  );
 
-    const targetTodo = todoList[index];
+  const update = useCallback(
+    (index: number, e: React.KeyboardEvent<HTMLInputElement>) => {
+      if (e.key !== 'Enter' || e.currentTarget.value === '') return;
 
-    const updatedTodoList = todoList.map((todo) => {
-      if (todo.id !== targetTodo.id) {
-        return todo;
-      }
+      const targetTodo = todoList[index];
 
-      const updatedTodo: Todo = {
-        ...todo,
-        todo: e.currentTarget.value,
-        isUpdate: false,
-      };
-      return updatedTodo;
-    });
+      const updatedTodoList = todoList.map((todo) => {
+        if (todo.id !== targetTodo.id) {
+          return todo;
+        }
 
-    setTodoList(updatedTodoList);
-  };
+        const updatedTodo: Todo = {
+          ...todo,
+          todo: e.currentTarget.value,
+          isUpdate: false,
+        };
+        return updatedTodo;
+      });
 
-  const destroy = (id: Todo['id']) => {
-    const destroyedTodoList = todoList.filter((todo) => todo.id !== id);
-    const sortedTodoList = sortIndex(destroyedTodoList);
-    setTodoList(sortedTodoList);
-  };
+      setTodoList(updatedTodoList);
+    },
+    [todoList]
+  );
 
-  const sortIndex = (todoList: Todo[]) => {
+  const sortIndex = useCallback((todoList: Todo[]) => {
     if (!todoList.length) {
       return todoList;
     }
@@ -77,7 +78,16 @@ export const useTodoList = () => {
     }));
 
     return sortedTodoList;
-  };
+  }, []);
+
+  const destroy = useCallback(
+    (id: Todo['id']) => {
+      const destroyedTodoList = todoList.filter((todo) => todo.id !== id);
+      const sortedTodoList = sortIndex(destroyedTodoList);
+      setTodoList(sortedTodoList);
+    },
+    [sortIndex, todoList]
+  );
 
   return {
     text,

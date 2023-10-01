@@ -11,7 +11,7 @@ interface TodoItem {
   update(index: number, e: React.KeyboardEvent<HTMLInputElement>): void;
 }
 
-export const Item: React.FC<TodoItem> = ({
+const Item: React.FC<TodoItem> = ({
   index,
   item,
   setIsUpdate,
@@ -45,3 +45,5 @@ export const Item: React.FC<TodoItem> = ({
     </div>
   );
 };
+
+export const MemorizeItem = React.memo(Item) as typeof Item;
